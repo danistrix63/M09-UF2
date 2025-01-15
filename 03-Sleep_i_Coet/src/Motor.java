@@ -1,25 +1,19 @@
 public class Motor extends Thread {
     private int potenciaActual = 0;
     private int potenciaObjectiu = 0;
+    private boolean executant = true; // Variable per controlar l'execució del thread
 
-    public synchronized void setPotencia(int p) {
+    public void setPotencia(int p) {
         this.potenciaObjectiu = p;
-        notify(); // Notifiquem el thread perquè reprengui l'execució si està en espera
+    }
+
+    public void parar() {
+        executant = false; // Atura el bucle quan es cridi a aquest mètode
     }
 
     @Override
     public void run() {
-        while (true) {
-            synchronized (this) {
-                while (potenciaActual == potenciaObjectiu) {
-                    try {
-                        wait(); // Espera fins que hi hagi una nova potència objectiu
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
+        while (executant) {
             if (potenciaActual < potenciaObjectiu) {
                 potenciaActual++;
                 System.out.printf("%s: Incre. Objectiu: %d Actual: %d%n", getName(), potenciaObjectiu, potenciaActual);
@@ -34,5 +28,6 @@ public class Motor extends Thread {
                 e.printStackTrace();
             }
         }
+        System.out.printf("%s: Motor aturat%n", getName());
     }
 }

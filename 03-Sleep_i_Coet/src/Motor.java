@@ -9,6 +9,10 @@ public class Motor extends Thread {
         jaFerRes = false; // Reiniciem perquè es pugui tornar a enviar el missatge "FerRes"
     }
 
+    public int getPotenciaActual() {
+        return potenciaActual; // Retorna la potència actual
+    }
+
     public void parar() {
         executant = false; // Atura el bucle quan es cridi a aquest mètode
     }

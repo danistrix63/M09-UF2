@@ -28,6 +28,22 @@ public class Coet {
         }
     }
 
+    public void pararMotors() {
+        for (Motor motor : motors) {
+            motor.parar(); // Detén cada motor
+        }
+    }
+
+    // Verifica si tots els motors han arribat a 0
+    public boolean totsElsMotorsAturats() {
+        for (Motor motor : motors) {
+            if (motor.getPotenciaActual() != 0) {
+                return false; // Si qualsevol motor no està a 0, retorna false
+            }
+        }
+        return true; // Si tots els motors estan a 0, retorna true
+    }
+
     public static void main(String[] args) {
         Coet coet = new Coet();
         coet.arranca();
@@ -37,10 +53,21 @@ public class Coet {
             System.out.print("Introdueix la potència objectiu (0 per sortir): ");
             int potencia = scanner.nextInt();
             coet.passaAPotencia(potencia);
+
+            // Si la potència és 0, verificar motors
             if (potencia == 0) {
-                break;
+                // Esperar fins que tots els motors estiguin a 0
+                while (!coet.totsElsMotorsAturats()) {
+                    try {
+                        Thread.sleep(500); // Verificar cada 500ms
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("Tots els motors estan aturats. Sortint del programa...");
+                coet.pararMotors(); // Detenemos todos los hilos antes de salir
+                return; // Salir del programa
             }
         }
-        scanner.close();
     }
 }

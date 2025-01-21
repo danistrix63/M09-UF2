@@ -13,7 +13,7 @@ public class Treballador extends Thread {
         this.nouAnualBrut = nouAnualBrut;
         this.edatIniciTreball = edatIniciTreball;
         this.edatFiTreball = edatFiTreball;
-        this.edatActual = 0;
+        this.edatActual = edatIniciTreball; // Iniciem en edatIniciTreball
         this.cobrat = 0.0f;
         this.rnd = new Random();
     }
@@ -28,15 +28,15 @@ public class Treballador extends Thread {
 
     @Override
     public void run() {
-        for (int any = edatIniciTreball; any <= edatFiTreball; any++) {
+        while (edatActual <= edatFiTreball) {
             cobra();
             pagaImpostos();
-            edatActual++;
+            edatActual++; // Incrementem l'edat correctament
             try {
-                Thread.sleep(rnd.nextInt(50)); // Simulación de tiempo para un año.
+                Thread.sleep(rnd.nextInt(50)); // Simulació d'un any
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.err.println("Thread interrumpido: " + getName());
+                System.err.println("Thread interrumpit: " + getName());
             }
         }
     }

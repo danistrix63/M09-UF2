@@ -31,7 +31,7 @@ public class Administracio {
         // Mostrem els resultats
         for (Treballador treballador : poblacioActiva) {
             System.out.printf("%s -> edat: %d / total: %.2f\n",
-                    treballador.getName(), treballador.getEdat(), treballador.getCobrat());
+                    treballador.getName(), treballador.getEdat() - 1, treballador.getCobrat());
         }
     }
 

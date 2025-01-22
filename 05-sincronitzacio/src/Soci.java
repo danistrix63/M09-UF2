@@ -1,4 +1,4 @@
-// Soci.java
+// Soci.java (Amb sincronització)
 import java.util.Random;
 
 public class Soci extends Thread {
@@ -17,9 +17,9 @@ public class Soci extends Thread {
         for (int any = 0; any < MAX_ANY; any++) {
             for (int mes = 0; mes < 12; mes++) {
                 if (mes % 2 == 0) {
-                    compte.setSaldo(compte.getSaldo() + APORTACIO);
+                    compte.ingressar(APORTACIO);
                 } else {
-                    compte.setSaldo(compte.getSaldo() - APORTACIO);
+                    compte.retirar(APORTACIO);
                 }
                 try {
                     Thread.sleep(random.nextInt(ESPERA_MAX));

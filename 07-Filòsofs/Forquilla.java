@@ -1,4 +1,3 @@
-// Forquilla.java
 public class Forquilla {
     private final int numero;
     private boolean enUs;
